@@ -60,4 +60,17 @@ describe('03_separation-of-concerns-demo routes', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual(item1);
   });
+  it('updates an order', async() => {
+    const item2 = {
+      id: '2',
+      quantityOfItems: 15,
+    };
+
+    const res = await request(app)
+      .put(`/api/v1/orders/${item2.id}`)
+      .send({ quantityOfItems: 1000 });
+    item2.quantityOfItems = 1000;
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(item2);
+  });
 });

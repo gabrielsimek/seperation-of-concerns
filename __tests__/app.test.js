@@ -73,4 +73,21 @@ describe('03_separation-of-concerns-demo routes', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual(item2);
   });
+  it('deletes an order', async() => {
+    const item2 = {
+      id: '2',
+      quantityOfItems: 1000,
+    };
+
+    const deletedItem = await request(app)
+      .delete(`/api/v1/orders/${item2.id}`);
+    expect(deletedItem.status).toBe(200);
+    expect(deletedItem.body).toEqual(item2);
+
+    const res = await request(app)
+      .get('/api/v1/orders');
+
+    expect(res.body).not.toEqual(expect.arrayContaining([item2]));
+    
+  });
 });
